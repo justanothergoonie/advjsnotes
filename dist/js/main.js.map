@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.js"],"names":["TodoList","selector"],"mappings":";;AAAA,IAAIA,QAAJ,CAAa;AAAEC,EAAAA,QAAQ,EAAE;AAAZ,CAAb,E,CAEA","sourcesContent":["new TodoList({ selector: '#todo1' });\n\n// new TodoList({ selector: '#todo2', background: 'red' });\n"],"file":"main.js"}
