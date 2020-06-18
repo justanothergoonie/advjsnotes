@@ -31,14 +31,12 @@ class TodoItem {
 		this.isFinished = !this.isFinished;
 		this.button.innerText = this.isFinished ? '✅' : '❌';
 		this.render();
-		TodoList.render();
 	};
 
 	importantItem = () => {
 		this.isImportant = !this.isImportant;
 		this.importantButton.innerText = this.isImportant ? '❗' : '❕';
 		this.render();
-		TodoList.render();
 	};
 
 	render = () => {
@@ -49,5 +47,6 @@ class TodoItem {
 		if (this.isImportant) {
 			this.element.classList.add('important');
 		} else this.element.classList.remove('important');
+		window.dispatchEvent(new Event('updateTodoList'));
 	};
 }

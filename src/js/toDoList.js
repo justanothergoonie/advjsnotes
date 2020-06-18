@@ -2,7 +2,7 @@ class TodoList {
 	listEl = null;
 	newItemEl = null;
 	items = [];
-
+	hideCompleted = false;
 	constructor(params) {
 		console.log('TodoList constructor', params);
 
@@ -13,32 +13,29 @@ class TodoList {
 		this.newItemEl = this.listEl.querySelector('input[type="text"]');
 		this.newItemEl.addEventListener('keyup', this.addItem);
 
-		this.deleteItems = document.querySelector('.clear-finished');
-		this.deleteItems.addEventListener('click', this.clearCompleted);
+		this.toggleFinishedItems = document.querySelector('.toggle-finished');
+		this.toggleFinishedItems.addEventListener(
+			'click',
+			this.toggleCompleted
+		);
 
 		this.totalLeft = document.querySelector('.total');
 		this.totalComp = document.querySelector('.done-total');
 		this.totalImport = document.querySelector('.import-total');
 
 		this.render();
+
+		window.addEventListener('updateTodoList', this.render);
 	}
 
 	isFieldValid = () => {
 		return (
 			'' !== this.newItemEl.value.trim() ||
 			(alert(
-				"I'm sorry Chris, I'm afraid I Can't do that... Dasiy, Dais.."
+				"I'm sorry Chris, I'm afraid I Can't do that... Daisy, Dais.."
 			),
 			!1)
 		);
-	};
-
-	clearCompleted = () => {
-		this.completed = document.querySelectorAll('.finished');
-		let total = this.items.length;
-		for (total = 0; total < this.completed.length; total++) {
-			this.completed[total].remove();
-		}
 	};
 
 	addItem = (keyEvent) => {
@@ -51,23 +48,33 @@ class TodoList {
 				this.items.push(item);
 				this.newItemEl.placeholder = 'Please Enter New Item';
 				this.render();
-				this.updateItemCount();
 			}
 		}
 	};
 
+	toggleCompleted = () => {
+		this.hideCompleted = !this.hideCompleted;
+		this.render();
+		// this.completed = document.querySelectorAll('.finished');
+		// let total = this.items.length;
+		// for (total = 0; total < this.completed.length; total++) {
+		// 	this.completed[total].();
+		// }
+	};
 	render = () => {
 		console.log('refreshing todo list', this.items);
 
 		const ul = this.listEl.querySelector('ul');
+		ul.innerText = '';
 		this.newItemEl.value = '';
 
-		this.items.forEach((item) => {
+		let itemsLeft = this.items.filter((item) => !item.isFinished);
+
+		let showItems = this.hideCompleted ? itemsLeft : this.items;
+		showItems.forEach((item) => {
 			ul.appendChild(item.element);
 		});
-		this.totalLeft.innerText = this.items.filter(
-			(item) => !item.isFinished
-		).length;
+		this.totalLeft.innerText = itemsLeft.length;
 
 		this.totalComp.innerText = this.items.filter(
 			(item) => item.isFinished

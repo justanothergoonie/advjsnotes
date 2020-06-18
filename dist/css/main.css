@@ -140,42 +140,65 @@ table {
 
 body {
 	background-color: #faf49d;
-	height: 100%;
 }
 
 .container {
-	position: relative;
-	padding: 50px 30px 50px;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
 	font-family: sans-serif;
-	width: 90%;
-	max-width: 600px;
-	margin: 140px auto;
+	width: 100%;
 	font-family: 'Rokkitt', serif;
 }
 
-h1 {
-	font-size: 2.5em;
-	text-align: center;
+@media screen and (min-width: 480px) {
+	.container {
+		flex-direction: column;
+		min-height: 100vh;
+	}
 }
 
-h2 {
-	font-size: 2.5em;
-	margin-top: 30px;
-	text-align: center;
-	margin-bottom: 5%;
+@media screen and (min-width: 768px) {
+	.container {
+		flex-direction: row;
+	}
 }
 
-.todo {
+.container .list-container {
 	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
 	flex-direction: column;
-	margin-top: 10px;
+}
+
+@media screen and (min-width: 480px) {
+	.container .list-container {
+		width: 90%;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.container .list-container {
+		width: 50%;
+	}
+}
+
+.container .list-container .todo {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 	border: 2px solid #e49651;
 	border-left: none;
 	border-bottom: 1px solid #e49651;
-	margin: 10px auto;
+	margin: 10px;
+	min-width: 100%;
 }
 
-.todo li {
+.container .list-container .todo li {
 	font-family: 'Rokkitt', serif;
 	font-size: 1.5em;
 	color: black;
@@ -188,9 +211,11 @@ h2 {
 	order: 0;
 	background-color: white;
 	transition: 1s ease;
+	width: 100%;
+	overflow: hidden;
 }
 
-.todo li div {
+.container .list-container .todo li div {
 	background-color: transparent;
 	border: 0px;
 	position: absolute;
@@ -201,26 +226,7 @@ h2 {
 	cursor: default;
 }
 
-.todo li.finished {
-	-webkit-text-decoration: line-through red;
-	        text-decoration: line-through red;
-	background-color: #faf49d;
-	-webkit-animation: doneflash 0.5s 1 linear;
-	        animation: doneflash 0.5s 1 linear;
-	order: 2;
-	transition: 1s ease;
-}
-
-.todo li.important {
-	background-color: #d4af37;
-	order: -1;
-}
-
-.todo li.important.finished {
-	order: 1;
-}
-
-.todo button {
+.container .list-container .todo li button {
 	background-color: transparent;
 	border: 0px;
 	position: absolute;
@@ -228,6 +234,116 @@ h2 {
 	font-size: 1.3em;
 	top: 2px;
 	right: 5px;
+}
+
+.container .list-container .todo li.finished {
+	-webkit-text-decoration: line-through red;
+	        text-decoration: line-through red;
+	-webkit-animation: doneflash 0.5s 1 linear;
+	        animation: doneflash 0.5s 1 linear;
+	order: 2;
+	transition: 1s ease;
+}
+
+.container .list-container .todo li.important {
+	order: -1;
+}
+
+.container .list-container .todo li.important.finished {
+	order: 1;
+}
+
+.container .stats-container {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+	.container .stats-container {
+		min-width: 30%;
+	}
+}
+
+.container .stats-container .stats {
+	display: flex;
+	flex-direction: column;
+}
+
+.container .stats-container .stats p {
+	display: flex;
+	padding: 5px 10px 5px 0px;
+}
+
+.container .stats-container .stats p span {
+	padding-left: 10px;
+}
+
+.container .stats-container .stats input {
+	font-size: 1em;
+	background-color: #faf49d;
+	border-radius: 10px;
+}
+
+.container .stats-container .stats .todo-total {
+	width: 50%;
+	font-size: 1.3em;
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.container .stats-container .stats .todo-total {
+		text-align: left;
+	}
+}
+
+.container .stats-container .stats .todo-total .total {
+	color: black;
+}
+
+.container .stats-container .stats .completed-total {
+	text-align: center;
+	width: 50%;
+	font-size: 1.3em;
+}
+
+@media screen and (min-width: 768px) {
+	.container .stats-container .stats .completed-total {
+		text-align: left;
+	}
+}
+
+.container .stats-container .stats .completed-total .done-total {
+	color: black;
+}
+
+.container .stats-container .stats .important-total {
+	text-align: center;
+	font-size: 1.3em;
+}
+
+@media screen and (min-width: 768px) {
+	.container .stats-container .stats .important-total {
+		text-align: left;
+	}
+}
+
+.container .stats-container .stats .important-total .import-total {
+	color: black;
+}
+
+h1 {
+	font-size: 2.5em;
+	text-align: center;
+}
+
+h2 {
+	font-size: 2.5em;
+	margin-top: 30px;
+	text-align: center;
+	margin-bottom: 5%;
 }
 
 .new-item {
@@ -252,103 +368,12 @@ h2 {
 	height: 30px;
 	font-size: 1em;
 	color: black;
-	background-color: #00a1ff;
+	background-color: #faf49d;
 	border-radius: 10px;
-}
-
-.stats {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.stats button {
-	width: 100%;
-	height: 30px;
-	font-size: 1em;
-	background-color: #00c600;
-	border-radius: 10px;
-}
-
-.stats .todo-total {
-	width: 50%;
-	font-size: 1.3em;
-}
-
-.stats .todo-total .total {
-	color: #00a1ff;
-}
-
-.stats .completed-total {
-	text-align: right;
-	width: 50%;
-	margin-bottom: 5%;
-	font-size: 1.3em;
-}
-
-.stats .completed-total .done-total {
-	color: #02c600;
-}
-
-.stats .important-total {
-	font-size: 1.3em;
-	margin: auto;
-}
-
-.stats .important-total .import-total {
-	color: #d4af37;
 }
 
 input {
 	background-color: #faf49d;
-}
-
-@-webkit-keyframes addedflash {
-	0% {
-		background-color: white;
-	}
-	50% {
-		background-color: #00a1ff;
-	}
-	100% {
-		background-color: white;
-	}
-}
-
-@keyframes addedflash {
-	0% {
-		background-color: white;
-	}
-	50% {
-		background-color: #00a1ff;
-	}
-	100% {
-		background-color: white;
-	}
-}
-
-@-webkit-keyframes doneflash {
-	0% {
-		background-color: #faf49d;
-	}
-	50% {
-		background-color: #00c600;
-	}
-	100% {
-		background-color: #faf49d;
-	}
-}
-
-@keyframes doneflash {
-	0% {
-		background-color: #faf49d;
-	}
-	50% {
-		background-color: #00c600;
-	}
-	100% {
-		background-color: #faf49d;
-	}
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -27,8 +27,6 @@ function TodoItem(aNewLabel) {
     _this.button.innerText = _this.isFinished ? '✅' : '❌';
 
     _this.render();
-
-    TodoList.render();
   });
 
   _defineProperty(this, "importantItem", function () {
@@ -36,8 +34,6 @@ function TodoItem(aNewLabel) {
     _this.importantButton.innerText = _this.isImportant ? '❗' : '❕';
 
     _this.render();
-
-    TodoList.render();
   });
 
   _defineProperty(this, "render", function () {
@@ -48,6 +44,8 @@ function TodoItem(aNewLabel) {
     if (_this.isImportant) {
       _this.element.classList.add('important');
     } else _this.element.classList.remove('important');
+
+    window.dispatchEvent(new Event('updateTodoList'));
   });
 
   console.log('TodoItem constructor', aNewLabel);
